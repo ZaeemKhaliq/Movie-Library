@@ -1,0 +1,111 @@
+.movie-details-section {
+  width: 50%;
+  padding-top: 2rem;
+}
+
+.input-label {
+  width: 100%;
+  font-size: 1.1rem;
+  font-weight: 700;
+}
+
+.movie-details-section {
+  padding-right: 1rem;
+  border-right: 1px solid white;
+}
+
+.input-title,
+.input-genre,
+.input-releaseDate,
+.input-rating,
+.input-description,
+.input-richDescription {
+  color: black;
+}
+
+.input-rating {
+  margin-right: 1rem;
+}
+
+.input-title,
+.input-genre,
+.input-releaseDate {
+  width: 80%;
+  padding: 0 0.4rem;
+  height: 2.2rem;
+  outline: none;
+  font-size: 1rem;
+}
+
+.input-description {
+  outline: none;
+  width: 80%;
+  min-width: 50%;
+  max-width: 80%;
+  height: 6rem;
+  min-height: 5rem;
+  max-height: 6rem;
+  padding: 0.5rem;
+  font-size: 0.9rem;
+}
+
+.input-richDescription {
+  outline: none;
+  width: 100%;
+  min-width: 80%;
+  max-width: 100%;
+  height: 10rem;
+  min-height: 10rem;
+  max-height: 15rem;
+  font-size: 0.8rem;
+  padding: 0.5rem;
+
+  &::placeholder {
+    font-size: 0.8rem;
+  }
+}
+
+@media screen and (max-width: 1000px) {
+  .input-title,
+  .input-genre,
+  .input-releaseDate {
+    width: 90%;
+  }
+}
+
+@media screen and (max-width: 700px) {
+  .movie-details-section {
+    width: 100%;
+    border-right: none;
+    padding-right: 0;
+  }
+
+  .input-title,
+  .input-genre,
+  .input-releaseDate,
+  .input-description,
+  .input-richDescription {
+    width: 100%;
+  }
+
+  .input-description {
+    width: 100%;
+    max-width: 100%;
+  }
+}
+
+@media screen and (max-width: 400px) {
+  .input-title,
+  .input-genre,
+  .input-releaseDate {
+    font-size: 0.9rem;
+  }
+
+  .input-description {
+    font-size: 0.8rem;
+  }
+
+  .input-richDescription {
+    font-size: 0.7rem;
+  }
+}

@@ -1,0 +1,10 @@
+.root-container {
+  min-height: 100vh;
+  background-color: black;
+  background: url("./assets/jpeg/stars1.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}

@@ -1,0 +1,221 @@
+.featured-movies-section {
+  margin-top: 3rem;
+}
+
+.featured-movies-heading {
+  text-align: center;
+  margin-bottom: 2rem;
+
+  h2 {
+    font-weight: 700;
+  }
+}
+
+.featured-movies-container {
+  width: 80%;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  flex-direction: column;
+}
+
+.featured-movie-card {
+  height: 15rem;
+  border: 1px solid white;
+  margin-bottom: 1rem;
+  display: flex;
+}
+
+.movie-image-container {
+  width: 20%;
+  padding: 1rem;
+}
+
+.movie-image {
+  width: 100%;
+  height: 100%;
+}
+
+.movie-details {
+  width: 80%;
+  padding: 1rem 1rem 0 1rem;
+}
+
+.movie-title {
+  display: flex;
+  justify-content: space-between;
+  height: 15%;
+
+  h3 {
+    font-weight: 700;
+    margin: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-size: 1.3rem;
+    width: 75%;
+  }
+}
+
+.edit-movie-text {
+  font-weight: 700;
+  width: 25%;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+
+  a {
+    color: white;
+    text-decoration: none;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}
+
+.movie-genre,
+.movie-rating {
+  height: 7%;
+
+  > p {
+    font-size: 0.7rem;
+    margin: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+}
+
+.movie-description {
+  margin-top: 1rem;
+  height: 47%;
+  display: -webkit-box;
+  -webkit-line-clamp: 5;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+
+  p {
+    font-size: 0.9rem;
+    margin: 0;
+  }
+}
+
+.view-details {
+  display: flex;
+  justify-content: flex-end;
+  p {
+    font-size: 0.8rem;
+    cursor: pointer;
+    font-weight: 700;
+
+    &:hover {
+      text-decoration: underline;
+    }
+
+    a {
+      text-decoration: none;
+      color: white;
+    }
+  }
+}
+
+@media screen and (min-width: 1500px) {
+  .featured-movie-card {
+    height: 20rem;
+  }
+}
+
+@media screen and (min-width: 2000px) {
+  .featured-movie-card {
+    height: 25rem;
+  }
+}
+
+@media screen and (min-width: 2500px) {
+  .featured-movie-card {
+    height: 30rem;
+  }
+}
+
+@media screen and (max-width: 1000px) {
+  .movie-image-container {
+    width: 25%;
+  }
+  .movie-details {
+    width: 75%;
+  }
+}
+
+@media screen and (max-width: 800px) {
+  .movie-image-container {
+    width: 30%;
+  }
+  .movie-details {
+    width: 70%;
+  }
+
+  .featured-movies-container {
+    width: 90%;
+  }
+}
+
+@media screen and (max-width: 650px) {
+  .edit-movie-text {
+    font-size: 0.8rem;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .featured-movies-container {
+    width: 95%;
+  }
+  .movie-image-container {
+    width: 35%;
+  }
+  .movie-details {
+    width: 65%;
+  }
+  .movie-description {
+    height: 42%;
+    -webkit-line-clamp: 5;
+    margin-bottom: 1rem;
+
+    p {
+      font-size: 0.75rem;
+    }
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .movie-title {
+    h3 {
+      width: 70%;
+    }
+  }
+
+  .edit-movie-text {
+    width: 20%;
+  }
+}
+
+@media screen and (max-width: 400px) {
+  .movie-image-container {
+    width: 45%;
+  }
+  .movie-details {
+    width: 55%;
+  }
+
+  .edit-movie-text {
+    font-size: 0.6rem;
+  }
+
+  .movie-title {
+    h3 {
+      font-size: 1rem;
+    }
+  }
+}

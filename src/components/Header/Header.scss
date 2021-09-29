@@ -1,0 +1,219 @@
+.header {
+  height: 5rem;
+  background-color: black;
+}
+
+.header-fields {
+  display: flex;
+  align-items: center;
+  height: 100%;
+  justify-content: center;
+}
+
+.left {
+  width: 40%;
+  height: 100%;
+}
+
+.middle {
+  width: 20%;
+  height: 100%;
+}
+
+.title-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+
+.title {
+  font-family: "Dancing Script", cursive, sans-serif;
+  font-weight: 700;
+}
+
+.right {
+  width: 40%;
+  height: 100%;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.auth-links-container {
+  display: flex;
+  width: 50%;
+  justify-content: space-evenly;
+}
+
+.auth-link {
+  width: 5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  p {
+    cursor: pointer;
+    transition: all 0.1s linear;
+    margin: 0;
+
+    &:hover {
+      font-weight: 700;
+      transform: scale(1.2);
+    }
+
+    a {
+      text-decoration: none;
+      color: white;
+    }
+  }
+}
+
+.nav-container {
+  height: auto;
+  border-bottom: 1px solid white;
+  border-top: 1px solid white;
+  background-color: rgb(29, 29, 29);
+}
+
+.nav-links {
+  display: flex;
+  margin: 0 auto;
+  width: clamp(15rem, 50%, 35rem);
+  height: 100%;
+  justify-content: space-between;
+
+  a {
+    text-decoration: none;
+  }
+}
+
+.nav-link {
+  width: 9rem;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.1s linear;
+  color: white;
+
+  &:hover {
+    transform: scale(1.2);
+    font-weight: 700;
+    color: white;
+  }
+}
+
+.logged-in-user {
+  border-top: 1px solid white;
+  text-align: center;
+  padding: 0.5rem 0;
+
+  h4,
+  p {
+    margin: 0;
+  }
+
+  h4 {
+    font-weight: 700;
+    font-size: 1.6rem;
+  }
+}
+
+.active {
+  transform: scale(1.2);
+  font-weight: 700;
+}
+
+@media screen and (max-width: 950px) {
+  .left,
+  .middle,
+  .right {
+    width: 33.33%;
+  }
+  .auth-links-container {
+    width: 60%;
+  }
+}
+
+@media screen and (max-width: 900px) {
+  .auth-links-container {
+    width: 70%;
+  }
+}
+
+@media screen and (max-width: 850px) {
+  .nav-links {
+    width: clamp(15rem, 70%, 35rem);
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .auth-links-container {
+    width: 80%;
+  }
+  .left {
+    display: none;
+  }
+  .middle,
+  .right {
+    width: 50%;
+  }
+
+  .nav-links {
+    width: clamp(15rem, 90%, 35rem);
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .nav-link {
+    width: 7rem;
+    font-size: 0.8rem;
+
+    &:hover {
+      transform: scale(1.1);
+    }
+  }
+  .nav-links {
+    width: clamp(15rem, 100%, 35rem);
+  }
+}
+
+@media screen and (max-width: 450px) {
+  .title {
+    font-size: 1.3rem;
+  }
+}
+
+@media screen and (max-width: 400px) {
+  .title {
+    font-size: 1.2rem;
+  }
+  .auth-links-container {
+    width: 90%;
+  }
+  .auth-link {
+    p {
+      font-size: 0.85rem;
+    }
+  }
+}
+
+@media screen and (max-width: 350px) {
+  .title {
+    font-size: 1rem;
+  }
+  .auth-links-container {
+    width: 95%;
+  }
+  .nav-link {
+    font-size: 0.7rem;
+    width: 6rem;
+  }
+}
+
+@media screen and (max-width: 300px) {
+  .nav-link {
+    font-size: 0.6rem;
+  }
+}

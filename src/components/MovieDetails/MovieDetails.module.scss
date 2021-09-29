@@ -1,0 +1,147 @@
+.movie-details-section {
+  display: flex;
+  flex-direction: column;
+}
+
+.movie-details-container {
+  margin: 3rem auto;
+  border: 1px solid white;
+  width: 80%;
+}
+
+.movie-details {
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.movie-overview {
+  display: flex;
+}
+
+.movie-image-container {
+  width: 20%;
+  height: 15rem;
+}
+
+.movie-image {
+  width: 100%;
+  height: 100%;
+}
+
+.movie-detail {
+  width: 80%;
+  padding: 0 1rem 1rem 1rem;
+
+  h3 {
+    margin-bottom: 1rem;
+  }
+}
+
+.movie-genre,
+.movie-release-date,
+.movie-rating {
+  p {
+    font-size: 0.8rem;
+  }
+}
+
+.short-description {
+  margin-top: 1rem;
+
+  p {
+    font-size: 0.8rem;
+  }
+}
+
+.movie-extra-details {
+  padding: 2rem 0 1rem 0;
+}
+
+.movie-rich-description-container {
+  p {
+    font-size: 0.8rem;
+    text-align: justify;
+  }
+}
+
+@media screen and (max-width: 1000px) {
+  .movie-image-container {
+    width: 25%;
+  }
+  .movie-detail {
+    width: 75%;
+  }
+}
+
+@media screen and (max-width: 800px) {
+  .movie-image-container {
+    width: 30%;
+  }
+  .movie-detail {
+    width: 70%;
+  }
+}
+
+@media screen and (max-width: 700px) {
+  .movie-image-container {
+    width: 35%;
+  }
+  .movie-detail {
+    width: 65%;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .movie-image-container {
+    width: 40%;
+  }
+  .movie-detail {
+    width: 60%;
+  }
+}
+
+@media screen and (max-width: 550px) {
+  .movie-details-container {
+    width: 95%;
+  }
+}
+
+@media screen and (max-width: 450px) {
+  .movie-image-container {
+    width: 40%;
+  }
+  .movie-detail {
+    width: 60%;
+  }
+}
+
+@media screen and (max-width: 400px) {
+  .movie-image-container {
+    width: 45%;
+  }
+  .movie-detail {
+    width: 55%;
+
+    h3 {
+      font-size: 1.1rem;
+    }
+  }
+  .movie-genre,
+  .movie-release-date,
+  .movie-rating {
+    p {
+      font-size: 0.7rem;
+    }
+  }
+  .short-description {
+    p {
+      font-size: 0.6rem;
+    }
+  }
+  .movie-rich-description-container {
+    p {
+      font-size: 0.7rem;
+    }
+  }
+}
