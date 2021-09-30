@@ -27,6 +27,7 @@ const movies = createSlice({
     movies: [],
     isFetching: false,
     errorMessage: "",
+    moviesFetching: null,
   },
   reducers: {
     setMovies(state, action) {
@@ -42,11 +43,13 @@ const movies = createSlice({
       console.log("I am fulfilled! (Movies)");
       state.movies = action.payload;
       state.isFetching = false;
+      state.moviesFetching = true;
     },
     [getMovies.rejected]: (state, action) => {
       console.log("I am rejected! (Movies)", action);
       state.errorMessage = action.error.message;
       state.isFetching = false;
+      state.moviesFetching = true;
     },
   },
 });

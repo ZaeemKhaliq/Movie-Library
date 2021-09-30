@@ -5,6 +5,9 @@ import { Helmet } from "react-helmet";
 
 import styles from "./Movies.module.scss";
 
+import Movie from "./Movie/Movie";
+import Pagination from "../Pagination/Pagination";
+
 export default function Movies(props) {
   const movies = useSelector((state) => state.movies.movies);
   const user = useSelector((state) => state.auth.user);
@@ -12,7 +15,7 @@ export default function Movies(props) {
     isFetching: useSelector((state) => state.movies.isFetching),
     errorMessage: useSelector((state) => state.movies.errorMessage),
   };
-  console.log(movies);
+  // console.log(movies);
 
   const parseJwt = (token) => {
     try {
@@ -37,45 +40,17 @@ export default function Movies(props) {
             <h3 style={{ textAlign: "center" }}>LOADING...</h3>
           ) : null}
           {flags.isFetching === false && movies.length ? (
-            movies.map((movie, index) => {
-              return (
-                <div className={styles["movie-card"]} key={movie.id}>
-                  <div className={styles["movie-image-container"]}>
-                    <img src={movie.image} className={styles["movie-image"]} />
-                  </div>
-                  <div className={styles["movie-details"]}>
-                    <div className={styles["movie-title"]}>
-                      <h3>{movie.title}</h3>
-                      {user && parseJwt(user.token).isAdmin === true ? (
-                        <p className={styles["edit-movie-text"]}>
-                          <Link to={`/edit-movie/${movie.id}`}>EDIT MOVIE</Link>
-                        </p>
-                      ) : null}
-                    </div>
-                    <div className={styles["movie-genre"]}>
-                      <p>Genre - {movie.genre}</p>
-                    </div>
-                    <div className={styles["movie-rating"]}>
-                      <p>Rating - {movie.rating}/5</p>
-                    </div>
-                    <div className={styles["movie-description"]}>
-                      <p>{movie.description}</p>
-                    </div>
-                    <div className={styles["view-details"]}>
-                      <p>
-                        <Link
-                          to={{
-                            pathname: `/movies/${movie.id}`,
-                          }}
-                        >
-                          VIEW DETAILS...
-                        </Link>
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              );
-            })
+            // movies.map((movie, index) => {
+            //   return <Movie user={user} movie={movie} parseJwt={parseJwt} />;
+            // })
+            <Pagination
+              data={movies}
+              pageLimit={2}
+              dataLimit={4}
+              user={user}
+              parseJwt={parseJwt}
+              isMovies={true}
+            />
           ) : flags.isFetching === false &&
             !movies.length &&
             !flags.errorMessage ? (

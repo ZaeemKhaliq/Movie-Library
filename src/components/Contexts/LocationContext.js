@@ -10,7 +10,7 @@ export default function LocationContext(props) {
     from: location.pathname,
     to: "/",
   });
-  console.log(locations);
+  // console.log(locations);
 
   useEffect(() => {
     setLocations((prev) => ({

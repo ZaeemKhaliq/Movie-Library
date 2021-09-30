@@ -8,7 +8,7 @@ export default function HomePage() {
   const movies = useSelector((state) => state.movies.movies);
   const user = useSelector((state) => state.auth.user);
   const filteredMovies = movies.filter((item) => item.isFeatured === true);
-  console.log(filteredMovies);
+  // console.log(filteredMovies);
 
   const flags = {
     isFetching: useSelector((state) => state.movies.isFetching),

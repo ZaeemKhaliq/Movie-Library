@@ -22,7 +22,13 @@ export default function EditMovie(props) {
     return movie.id == movieId;
   });
 
-  console.log(filteredMovie);
+  // console.log(filteredMovie);
+
+  const flags = {
+    moviesFetching: useSelector((state) => state.movies.moviesFetching),
+  };
+
+  // console.log(flags);
 
   const [details, setDetails] = useState({
     title: "",
@@ -34,9 +40,10 @@ export default function EditMovie(props) {
     image: "",
   });
   const [flag, setFlag] = useState(false);
+  const [deleteFlag, setDeleteFlag] = useState(false);
   const [error, setError] = useState("");
 
-  console.log(details);
+  // console.log(details);
 
   useEffect(() => {
     if (filteredMovie.length) {
@@ -89,22 +96,47 @@ export default function EditMovie(props) {
     ) {
       alert("Enter release date between range!");
     } else {
-      setFlag(true);
+      if (window.confirm("Update movie?")) {
+        setFlag(true);
+        setError("");
+
+        let form = document.getElementById("edit-movie-form");
+        let formData = new FormData(form);
+
+        MovieService.updateMovie(movieId, formData)
+          .then((response) => {
+            console.log(response);
+            alert("Movie updated successfully!");
+            setFlag(false);
+            history.push("/movies");
+            window.location.reload();
+          })
+          .catch((err) => {
+            setFlag(false);
+            if (err.response) {
+              setError(err.response.data.message);
+            } else {
+              setError(err.message);
+            }
+          });
+      }
+    }
+  };
+
+  const handleDelete = () => {
+    if (window.confirm("Delete this movie?")) {
+      setDeleteFlag(true);
       setError("");
 
-      let form = document.getElementById("edit-movie-form");
-      let formData = new FormData(form);
-
-      MovieService.updateMovie(movieId, formData)
+      MovieService.deleteMovie(movieId)
         .then((response) => {
-          console.log(response);
-          alert("Movie updated successfully!");
-          setFlag(false);
+          setDeleteFlag(false);
+          alert("The movie has been deleted successfully!");
           history.push("/movies");
           window.location.reload();
         })
         .catch((err) => {
-          setFlag(false);
+          setDeleteFlag(false);
           if (err.response) {
             setError(err.response.data.message);
           } else {
@@ -125,64 +157,93 @@ export default function EditMovie(props) {
 
   return (
     <>
-      <Helmet>
-        <title>EDIT MOVIE</title>
-      </Helmet>
-      <section className={styles["edit-movie-root-container"]}>
-        <div className={styles["edit-movie-container"]}>
-          <div className={styles["edit-movie-container-heading"]}>
-            <h3>EDIT MOVIE</h3>
-          </div>
-          <div className={styles["edit-movie-container-body"]}>
-            {user && parseJwt(user.token).isAdmin === true ? (
-              <div className={styles["edit-movie-form-container"]}>
-                <form
-                  className={styles["edit-movie-form"]}
-                  id="edit-movie-form"
-                  name="edit-movie-form"
-                >
-                  <div className={styles["form-fields"]}>
-                    <MovieDetails
-                      handleChange={handleChange}
-                      details={details}
-                    />
-                    <MovieImage
-                      handleFileChange={handleFileChange}
-                      filteredMovie={filteredMovie}
-                    />
-                  </div>
-                  <div className={styles["form-submit-container"]}>
-                    {error && <p className={styles["error-text"]}>{error}</p>}
-
-                    <button
-                      className={styles["submit-button"]}
-                      type="submit"
-                      onClick={handleSubmit}
-                      disabled={flag == true ? true : false}
+      {flags.moviesFetching == true && !filteredMovie.length ? (
+        <Redirect to="/movies" />
+      ) : (
+        <>
+          <Helmet>
+            <title>EDIT MOVIE</title>
+          </Helmet>
+          <section className={styles["edit-movie-root-container"]}>
+            <div className={styles["edit-movie-container"]}>
+              <div className={styles["edit-movie-container-heading"]}>
+                <h3>EDIT MOVIE</h3>
+              </div>
+              <div className={styles["edit-movie-container-body"]}>
+                {user && parseJwt(user.token).isAdmin === true ? (
+                  <div className={styles["edit-movie-form-container"]}>
+                    <form
+                      className={styles["edit-movie-form"]}
+                      id="edit-movie-form"
+                      name="edit-movie-form"
                     >
-                      {!flag ? (
-                        "SUBMIT"
-                      ) : (
-                        <Spinner
-                          animation="border"
-                          variant="light"
-                          className={styles["spinner"]}
+                      <div className={styles["form-fields"]}>
+                        <MovieDetails
+                          handleChange={handleChange}
+                          details={details}
                         />
-                      )}
-                    </button>
+                        <MovieImage
+                          handleFileChange={handleFileChange}
+                          filteredMovie={filteredMovie}
+                        />
+                      </div>
+                      <div className={styles["error-text-container"]}>
+                        {error && (
+                          <p className={styles["error-text"]}>{error}</p>
+                        )}
+                      </div>
+                      <div className={styles["form-submit-container"]}>
+                        <button
+                          className={styles["submit-button"]}
+                          type="submit"
+                          onClick={handleSubmit}
+                          disabled={
+                            flag == true || deleteFlag == true ? true : false
+                          }
+                        >
+                          {!flag ? (
+                            "SUBMIT"
+                          ) : (
+                            <Spinner
+                              animation="border"
+                              variant="light"
+                              className={styles["spinner"]}
+                            />
+                          )}
+                        </button>
+                        <button
+                          className={styles["delete-button"]}
+                          type="button"
+                          onClick={handleDelete}
+                          disabled={
+                            deleteFlag == true || flag == true ? true : false
+                          }
+                        >
+                          {!deleteFlag ? (
+                            "DELETE MOVIE"
+                          ) : (
+                            <Spinner
+                              animation="border"
+                              variant="light"
+                              className={styles["spinner"]}
+                            />
+                          )}
+                        </button>
+                      </div>
+                    </form>
                   </div>
-                </form>
+                ) : user && parseJwt(user.token).isAdmin === false ? (
+                  <Redirect to="/movies" />
+                ) : (
+                  <div className={styles["info-para"]}>
+                    <h5>You must be logged in as an Admin to edit a movie!</h5>
+                  </div>
+                )}
               </div>
-            ) : user && parseJwt(user.token).isAdmin === false ? (
-              <Redirect to="/movies" />
-            ) : (
-              <div className={styles["info-para"]}>
-                <h5>You must be logged in as an Admin to edit a movie!</h5>
-              </div>
-            )}
-          </div>
-        </div>
-      </section>
+            </div>
+          </section>
+        </>
+      )}
     </>
   );
 }

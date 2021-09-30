@@ -10,6 +10,8 @@ import ProfileAvatar from "../../../assets/jpeg/profile-avatar.png";
 import FiberManualRecordIcon from "@mui/icons-material/FiberManualRecord";
 import ControlPointIcon from "@mui/icons-material/ControlPoint";
 import RemoveCircleOutlineIcon from "@mui/icons-material/RemoveCircleOutline";
+import Comment from "./Comment/Comment";
+import Pagination from "../../Pagination/Pagination";
 
 export default function CommentSection(props) {
   const user = useSelector((state) => state.auth.user);
@@ -18,15 +20,17 @@ export default function CommentSection(props) {
 
   const [commentBox, setCommentBox] = useState(false);
   const [editCommentBoxValues, setEditCommentBoxValues] = useState();
-  console.log("Edit comment box: ", editCommentBoxValues);
+  // console.log("Edit comment box: ", editCommentBoxValues);
   const [details, setDetails] = useState({ userComment: "", editComment: "" });
-  console.log(details);
+  // console.log(details);
 
   const [comments, setComments] = useState([]);
   const [fetchingComments, setFetchingComments] = useState(false);
   const [error, setError] = useState("");
   const [postError, setPostError] = useState("");
-  console.log("Comments: ", comments);
+  const [postFlag, setPostFlag] = useState(false);
+  const [spinnerFlag, setSpinnerFlag] = useState(false);
+  // console.log("Comments: ", comments);
 
   useEffect(() => {
     getComments();
@@ -41,8 +45,9 @@ export default function CommentSection(props) {
     MovieService.getComments(movieId)
       .then((response) => {
         const result = response.data;
+        const reversedResult = result.reverse();
         setFetchingComments(false);
-        setComments(result);
+        setComments(reversedResult);
       })
       .catch((err) => {
         setFetchingComments(false);
@@ -61,7 +66,7 @@ export default function CommentSection(props) {
   const commentBoxValuesSetter = (index) => {
     let valuesObject = {};
     for (var i = 0; i < comments.length; i++) {
-      console.log(i);
+      // console.log(i);
       valuesObject[`${i}`] = false;
     }
     setEditCommentBoxValues(valuesObject);
@@ -105,18 +110,29 @@ export default function CommentSection(props) {
       movieId: movieId,
     };
 
-    console.log(data);
+    // console.log(data);
 
     const post = () => {
+      setPostFlag(true);
+
       MovieService.postComment(data)
         .then((response) => {
           alert("Comment posted successfully!");
           getComments();
+          setPostFlag(false);
           setCommentBox(false);
         })
         .catch((err) => {
-          console.log(err);
-          setPostError(err);
+          setPostFlag(false);
+
+          if (err.response) {
+            const errorMessage = err.response.data.message;
+            alert(errorMessage);
+          } else {
+            const errorMessage = err.message;
+            alert(errorMessage);
+            setPostError(errorMessage);
+          }
         });
     };
 
@@ -140,12 +156,30 @@ export default function CommentSection(props) {
   /*POST COMMENT*/
 
   /*DELETE COMMENT*/
-  const deleteComment = (id) => {
+  const deleteComment = (id, setDeleteLocalFlag) => {
     if (window.confirm("Delete this comment?")) {
-      MovieService.deleteComment(id).then((response) => {
-        alert("Comment deleted successfully!");
-        getComments();
-      });
+      setPostFlag(true);
+      setDeleteLocalFlag(true);
+
+      MovieService.deleteComment(id)
+        .then((response) => {
+          alert("Comment deleted successfully!");
+          setPostFlag(false);
+          setDeleteLocalFlag(false);
+          getComments();
+        })
+        .catch((err) => {
+          setPostFlag(false);
+          setDeleteLocalFlag(false);
+
+          if (err.response) {
+            const errorMessage = err.response.data.message;
+            alert(errorMessage);
+          } else {
+            const errorMessage = err.message;
+            alert(errorMessage);
+          }
+        });
     }
   };
   /*DELETE COMMENT*/
@@ -155,20 +189,41 @@ export default function CommentSection(props) {
     const data = { comment: details.editComment };
 
     if (window.confirm("Update the comment?")) {
-      MovieService.updateComment(id, data).then((response) => {
-        alert("Comment updated successfully!");
-        getComments();
-      });
+      setPostFlag(true);
+      setSpinnerFlag(true);
+
+      MovieService.updateComment(id, data)
+        .then((response) => {
+          alert("Comment updated successfully!");
+          setPostFlag(false);
+          setSpinnerFlag(false);
+          getComments();
+        })
+        .catch((err) => {
+          setPostFlag(false);
+          setSpinnerFlag(false);
+
+          if (err.response) {
+            const errorMessage = err.response.data.message;
+            alert(errorMessage);
+          } else {
+            const errorMessage = err.message;
+            alert(errorMessage);
+          }
+        });
     }
   };
   /*EDIT COMMENT*/
 
+  /*MEMOIZE COMMENTS*/
   const totalComments = useMemo(() => {
     const commentsLen = comments.length;
     console.log("Comments Length:", commentsLen);
     return commentsLen;
   }, [comments]);
+  /*MEMOIZE COMMENTS*/
 
+  /*CREATE DATE FORMAT*/
   const parsedDate = (inputDate) => {
     const correctDate = new Date(inputDate).toLocaleString();
 
@@ -179,11 +234,13 @@ export default function CommentSection(props) {
 
     const finalDate = `${date} - ${time}`;
 
-    console.log(finalDate);
+    // console.log(finalDate);
 
     return finalDate;
   };
+  /*CREATE DATE FORMAT*/
 
+  /*MEMOIZE DATES*/
   const memoizedDates = useMemo(() => {
     const commentsArr = [];
     if (comments.length) {
@@ -192,13 +249,14 @@ export default function CommentSection(props) {
         commentsArr.push(date);
       });
 
-      console.log(commentsArr);
+      // console.log(commentsArr);
 
       return commentsArr;
     } else {
       return;
     }
   }, [comments]);
+  /*MEMOIZE DATES*/
 
   return (
     <>
@@ -244,6 +302,7 @@ export default function CommentSection(props) {
                     <button
                       className={styles["post-button"]}
                       onClick={postComment}
+                      disabled={postFlag == true ? true : false}
                     >
                       Post Comment
                     </button>
@@ -254,79 +313,40 @@ export default function CommentSection(props) {
 
             <div className={styles["comments-container"]}>
               {comments.length ? (
-                comments.map((comment, index) => {
-                  return (
-                    <div className={styles["comment"]} key={index}>
-                      <div className={styles["metadata"]}>
-                        <div className={styles["image-container"]}>
-                          <img
-                            src={ProfileAvatar}
-                            alt="IMAGE"
-                            className={styles["image"]}
-                          />
-                        </div>
-                        <div className={styles["user-info-container"]}>
-                          <div className={styles["user-name-date"]}>
-                            <div className={styles["user-name"]}>
-                              <h6>{comment.user.name}</h6>
-                            </div>
+                <Pagination
+                  data={comments}
+                  handleChange={handleChange}
+                  details={details}
+                  editCommentBoxValues={editCommentBoxValues}
+                  editComment={editComment}
+                  deleteComment={deleteComment}
+                  toggleEditCommentBoxValues={toggleEditCommentBoxValues}
+                  memoizedDates={memoizedDates}
+                  user={user}
+                  isComments={true}
+                  dataLimit={4}
+                  pageLimit={2}
+                  postFlag={postFlag}
+                  spinnerFlag={spinnerFlag}
+                />
+              ) : // comments.map((comment, index) => {
+              //   return (
 
-                            <p>{memoizedDates[index]}</p>
-                          </div>
-                          <div className={styles["user-email"]}>
-                            <p>{comment.user.email}</p>
-                          </div>
-                        </div>
-                      </div>
-                      <div className={styles["comment-text"]}>
-                        <p>{comment.comment}</p>
-                      </div>
-
-                      {editCommentBoxValues[index] && (
-                        <div className={styles["edit-comment-box-container"]}>
-                          <textarea
-                            name="editComment"
-                            className={styles["edit-comment-box"]}
-                            onChange={handleChange}
-                            value={details.editComment}
-                          ></textarea>
-                          <div className={styles["post-edit-button-container"]}>
-                            <button
-                              className={styles["post-edit-button"]}
-                              onClick={() => editComment(comment.id)}
-                            >
-                              POST EDIT
-                            </button>
-                          </div>
-                        </div>
-                      )}
-                      {user && comment.user.email == user.user.email && (
-                        <div className={styles["buttons-container"]}>
-                          <div className={styles["delete-button"]}>
-                            <p onClick={() => deleteComment(comment.id)}>
-                              DELETE
-                            </p>
-                          </div>
-                          <div className={styles["separator"]}>
-                            <FiberManualRecordIcon
-                              className={styles["circle"]}
-                            />
-                          </div>
-                          <div className={styles["edit-button"]}>
-                            <p
-                              onClick={() => toggleEditCommentBoxValues(index)}
-                            >
-                              {editCommentBoxValues[index]
-                                ? "CANCEL EDIT"
-                                : "EDIT"}
-                            </p>
-                          </div>
-                        </div>
-                      )}
-                    </div>
-                  );
-                })
-              ) : !comments.length && fetchingComments == true ? (
+              //     // <Comment
+              //     //   comment={comment}
+              //     //   index={index}
+              //     //   handleChange={handleChange}
+              //     //   details={details}
+              //     //   editCommentBoxValues={editCommentBoxValues}
+              //     //   editComment={editComment}
+              //     //   deleteComment={deleteComment}
+              //     //   toggleEditCommentBoxValues={toggleEditCommentBoxValues}
+              //     //   memoizedDates={memoizedDates}
+              //     //   user={user}
+              //     // />
+              //   );
+              // })
+              !comments.length && fetchingComments == true ? (
                 <h5 style={{ textAlign: "center" }}>LOADING COMMENTS...</h5>
               ) : error ? (
                 <h5 style={{ textAlign: "center" }}>{error}</h5>

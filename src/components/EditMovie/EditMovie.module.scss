@@ -37,12 +37,22 @@ $red: #eb4949;
 }
 
 .form-submit-container {
-  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
   margin: 2rem 0;
+}
+
+.error-text-container {
+  margin-top: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .error-text {
   color: $red;
+  margin: 0;
 }
 
 .submit-button {
@@ -57,15 +67,16 @@ $red: #eb4949;
     background-color: black;
     color: white;
     border: 1px solid white;
+  }
 
-    .spinner {
-      color: white !important;
-    }
+  &:disabled {
+    background-color: #737070;
+    border: none;
+    color: black;
   }
 }
 
 .spinner {
-  color: black !important;
   transition: all 0.3s linear;
   height: 2.2rem;
   width: 2.2rem;
@@ -76,6 +87,24 @@ $red: #eb4949;
 
   h5 {
     text-align: center;
+  }
+}
+
+.delete-button {
+  background-color: #d40000;
+  color: white;
+  height: 2.5rem;
+  width: clamp(5rem, 50%, 15rem);
+  border: 1px solid black;
+  transition: all 0.2s linear;
+  font-weight: 600;
+
+  &:hover {
+    background-color: #f72323;
+  }
+
+  &:disabled {
+    background-color: $red;
   }
 }
 
@@ -95,10 +124,35 @@ $red: #eb4949;
       margin: 0 auto;
     }
   }
+
+  .submit-button,
+  .delete-button {
+    width: clamp(5rem, 45%, 15rem);
+  }
+}
+
+@media screen and (max-width: 450px) {
+  .submit-button,
+  .delete-button {
+    width: clamp(5rem, 40%, 15rem);
+  }
 }
 
 @media screen and (max-width: 400px) {
   .edit-movie-root-container {
     width: 90%;
+  }
+
+  .submit-button,
+  .delete-button {
+    width: clamp(5rem, 48%, 15rem);
+  }
+}
+
+@media screen and (max-width: 350px) {
+  .submit-button,
+  .delete-button {
+    width: clamp(5rem, 48%, 15rem);
+    font-size: 0.8rem;
   }
 }

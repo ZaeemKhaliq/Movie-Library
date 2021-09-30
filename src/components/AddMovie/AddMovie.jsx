@@ -27,7 +27,7 @@ export default function AddMovie(props) {
   });
   const [flag, setFlag] = useState(false);
 
-  console.log(details);
+  // console.log(details);
 
   const computeMaxYear = useMemo(() => {
     let date = new Date();

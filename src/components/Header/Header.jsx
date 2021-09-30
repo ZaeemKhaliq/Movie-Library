@@ -7,7 +7,6 @@ import "./Header.scss";
 
 export default function Header() {
   const user = useSelector((state) => state.auth.user);
-  console.log(user);
 
   const logout = () => {
     AuthService.logout();

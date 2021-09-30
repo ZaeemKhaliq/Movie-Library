@@ -14,7 +14,7 @@ export default function MovieDetails(props) {
 
   const filteredMovie = movies.filter((item) => item.id === movieId);
   const movie = filteredMovie[0];
-  console.log(movie);
+  // console.log(movie);
 
   const flags = {
     isFetching: useSelector((state) => state.movies.isFetching),
