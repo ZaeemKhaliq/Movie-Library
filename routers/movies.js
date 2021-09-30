@@ -101,7 +101,7 @@ router.put(
     let movie;
 
     if (!mongoose.isValidObjectId(req.params.id)) {
-      return res.status(400).send("Invalid Object ID!");
+      return res.status(400).send({ message: "Invalid Object ID!" });
     }
 
     console.log(req.body);
@@ -132,7 +132,7 @@ router.put(
     }
 
     if (!movie) {
-      return res.status(500).send("Error updating movie!");
+      return res.status(500).send({ message: "Error updating movie!" });
     }
 
     res.send(movie);
@@ -162,18 +162,20 @@ router.put(
 
 router.delete("/delete-movie/:id", async (req, res) => {
   if (!mongoose.isValidObjectId(req.params.id)) {
-    return res.status(400).send("Invalid Object ID!");
+    return res.status(400).send({ message: "Invalid Object ID!" });
   }
 
   const movieExists = await Movie.findById(req.params.id);
   if (!movieExists) {
-    return res.status(400).send("The movie with this ID doesn't exists");
+    return res
+      .status(400)
+      .send({ message: "The movie with this ID doesn't exists" });
   }
 
   const movie = await Movie.findByIdAndRemove(req.params.id);
 
   if (!movie) {
-    return res.status(500).send("Error deleting movie!");
+    return res.status(500).send({ message: "Error deleting movie!" });
   }
 
   res.json({

@@ -28,7 +28,7 @@ router.get("/get-comments/:id", async (req, res) => {
 
     res.send(comments);
   } catch (err) {
-    return res.status(400).send(err);
+    return res.status(400).send({ message: err });
   }
 });
 
@@ -48,7 +48,7 @@ router.post("/add-comment", async (req, res) => {
 
     res.send(result);
   } catch (err) {
-    return res.send(err);
+    return res.send({ message: err });
   }
 });
 
@@ -72,7 +72,7 @@ router.delete("/delete-comment/:id", async (req, res) => {
 
 router.put("/edit-comment/:id", async (req, res) => {
   if (!mongoose.isValidObjectId(req.params.id)) {
-    return res.status(400).send("Invalid Object ID!");
+    return res.status(400).send({ message: "Invalid Object ID!" });
   }
 
   try {
@@ -88,7 +88,7 @@ router.put("/edit-comment/:id", async (req, res) => {
       updatedComment: result,
     });
   } catch (err) {
-    return res.status(500).send("Some error occured!");
+    return res.status(500).send({ message: "Some error occured!" });
   }
 });
 
