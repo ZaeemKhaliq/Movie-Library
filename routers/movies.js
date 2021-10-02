@@ -7,8 +7,8 @@ const { Movie } = require("../models/movie");
 
 const FILE_TYPE_MAP = {
   "image/png": "png",
-  "image/jpeg": "jpeg",
   "image/jpg": "jpg",
+  "image/jpeg": "jpeg",
 };
 
 const storage = multer.diskStorage({
@@ -25,6 +25,7 @@ const storage = multer.diskStorage({
   filename: function (req, file, cb) {
     const fileName = file.originalname.split(".");
     const extension = FILE_TYPE_MAP[file.mimetype];
+
     cb(null, `${fileName[0]}-${Date.now()}.${extension}`);
   },
 });
@@ -103,8 +104,6 @@ router.put(
     if (!mongoose.isValidObjectId(req.params.id)) {
       return res.status(400).send({ message: "Invalid Object ID!" });
     }
-
-    console.log(req.body);
 
     const file = req.file;
     if (file) {
