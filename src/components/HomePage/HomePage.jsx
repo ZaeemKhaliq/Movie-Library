@@ -24,6 +24,20 @@ export default function HomePage() {
     }
   };
 
+  const getImage = (image) => {
+    let splitted = image.split("/");
+
+    let movieNameIndex = splitted.length - 1;
+    let movieName = splitted[movieNameIndex];
+
+    let splitMovieName = movieName.split("-");
+    let splitExtension = movieName.split(".");
+
+    let finalMovieName = splitMovieName[0] + ".jpg";
+
+    return finalMovieName;
+  };
+
   return (
     <>
       <section className={styles["featured-movies-section"]}>
@@ -39,7 +53,12 @@ export default function HomePage() {
               return (
                 <div className={styles["featured-movie-card"]} key={movie.id}>
                   <div className={styles["movie-image-container"]}>
-                    <img src={movie.image} className={styles["movie-image"]} />
+                    <img
+                      src={`assets/images/movie-images/${getImage(
+                        movie.image
+                      )}`}
+                      className={styles["movie-image"]}
+                    />
                   </div>
                   <div className={styles["movie-details"]}>
                     <div className={styles["movie-title"]}>
