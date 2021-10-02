@@ -5,10 +5,27 @@ import styles from "./Movie.module.scss";
 export default function Movie(props) {
   let { movie, user, parseJwt } = props;
 
+  const getImage = (image) => {
+    let splitted = image.split("/");
+
+    let movieNameIndex = splitted.length - 1;
+    let movieName = splitted[movieNameIndex];
+
+    let splitMovieName = movieName.split("-");
+    let splitExtension = movieName.split(".");
+
+    let finalMovieName = splitMovieName[0] + ".jpg";
+
+    return finalMovieName;
+  };
+
   return (
     <div className={styles["movie-card"]} key={movie.id}>
       <div className={styles["movie-image-container"]}>
-        <img src={movie.image} className={styles["movie-image"]} />
+        <img
+          src={`assets/images/movie-images/${getImage(movie.image)}`}
+          className={styles["movie-image"]}
+        />
       </div>
       <div className={styles["movie-details"]}>
         <div className={styles["movie-title"]}>
