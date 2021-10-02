@@ -28,7 +28,7 @@ export default function MovieImage(props) {
         <img
           src={
             filteredMovie.length &&
-            `assets/images/movie-images/${getImage(filteredMovie[0].image)}`
+            `/assets/images/movie-images/${getImage(filteredMovie[0].image)}`
           }
           alt="movie-image"
           className={styles["cover-image"]}

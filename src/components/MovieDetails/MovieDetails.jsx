@@ -46,6 +46,20 @@ export default function MovieDetails(props) {
     return finalArray;
   };
 
+  const getImage = (image) => {
+    let splitted = image.split("/");
+
+    let movieNameIndex = splitted.length - 1;
+    let movieName = splitted[movieNameIndex];
+
+    let splitMovieName = movieName.split("-");
+    let splitExtension = movieName.split(".");
+
+    let finalMovieName = splitMovieName[0] + ".jpg";
+
+    return finalMovieName;
+  };
+
   return (
     <>
       <section className={styles["movie-details-section"]}>
@@ -56,7 +70,9 @@ export default function MovieDetails(props) {
                 <div className={styles["movie-overview"]}>
                   <div className={styles["movie-image-container"]}>
                     <img
-                      src={movie.image}
+                      src={`/assets/images/movie-images/${getImage(
+                        movie.image
+                      )}`}
                       alt="MOVIE"
                       className={styles["movie-image"]}
                     />

@@ -54,7 +54,7 @@ export default function HomePage() {
                 <div className={styles["featured-movie-card"]} key={movie.id}>
                   <div className={styles["movie-image-container"]}>
                     <img
-                      src={`assets/images/movie-images/${getImage(
+                      src={`/assets/images/movie-images/${getImage(
                         movie.image
                       )}`}
                       className={styles["movie-image"]}

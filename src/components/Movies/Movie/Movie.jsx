@@ -23,7 +23,7 @@ export default function Movie(props) {
     <div className={styles["movie-card"]} key={movie.id}>
       <div className={styles["movie-image-container"]}>
         <img
-          src={`assets/images/movie-images/${getImage(movie.image)}`}
+          src={`/assets/images/movie-images/${getImage(movie.image)}`}
           className={styles["movie-image"]}
         />
       </div>
