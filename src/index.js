@@ -7,6 +7,8 @@ import store from "./store/store";
 
 import "./index.scss";
 
+import ColorContext from "./components/Contexts/ColorContext";
+
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 
@@ -14,7 +16,9 @@ ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
       <Router>
-        <App />
+        <ColorContext>
+          <App />
+        </ColorContext>
       </Router>
     </Provider>
   </React.StrictMode>,

@@ -1,8 +1,10 @@
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useContext, useEffect, useMemo, useState } from "react";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 
 import MovieService from "../../../services/movie-service";
+
+import { ColContext } from "../../Contexts/ColorContext";
 
 import styles from "./CommentSection.module.scss";
 
@@ -14,6 +16,8 @@ import Comment from "./Comment/Comment";
 import Pagination from "../../Pagination/Pagination";
 
 export default function CommentSection(props) {
+  let { theme } = useContext(ColContext);
+
   const user = useSelector((state) => state.auth.user);
 
   let { movieId } = props;
@@ -260,14 +264,35 @@ export default function CommentSection(props) {
 
   return (
     <>
-      <div className={styles["comment-section-root-container"]}>
+      <div
+        className={`${styles["comment-section-root-container"]} ${
+          theme == "black"
+            ? "whiteText blackBackground"
+            : "blackText whiteBackground"
+        }`}
+        style={{
+          border: theme == "black" ? "1px solid white" : "1px solid black",
+        }}
+      >
         <div className={styles["comment-section-container"]}>
-          <div className={styles["comment-section-heading"]}>
+          <div
+            className={styles["comment-section-heading"]}
+            style={{
+              borderBottom:
+                theme == "black" ? "5px solid white" : "5px solid black",
+            }}
+          >
             <h3>COMMENTS</h3>
             <h3>TOTAL COMMENTS: {totalComments}</h3>
           </div>
           <div className={styles["comment-section-body"]}>
-            <div className={styles["comment-box"]}>
+            <div
+              className={styles["comment-box"]}
+              style={{
+                borderBottom:
+                  theme == "black" ? "1px solid white" : "1px solid black",
+              }}
+            >
               {!user ? (
                 <p>
                   You must be logged in to add a comment!{" "}

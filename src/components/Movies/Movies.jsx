@@ -1,7 +1,9 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { Helmet } from "react-helmet";
+
+import { ColContext } from "../Contexts/ColorContext";
 
 import styles from "./Movies.module.scss";
 
@@ -9,6 +11,8 @@ import Movie from "./Movie/Movie";
 import Pagination from "../Pagination/Pagination";
 
 export default function Movies(props) {
+  let { theme } = useContext(ColContext);
+
   const movies = useSelector((state) => state.movies.movies);
   const user = useSelector((state) => state.auth.user);
   const flags = {
@@ -31,7 +35,11 @@ export default function Movies(props) {
       <Helmet>
         <title>MOVIES</title>
       </Helmet>
-      <section className={styles["movies-list-section"]}>
+      <section
+        className={`${styles["movies-list-section"]} ${
+          theme == "black" ? "whiteText" : "blackText"
+        }`}
+      >
         <div className={styles["movies-list-heading"]}>
           <h2>ALL MOVIES</h2>
         </div>

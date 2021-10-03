@@ -1,9 +1,11 @@
-import { useEffect, useMemo, useState } from "react";
+import { useContext, useEffect, useMemo, useState } from "react";
 import { Helmet } from "react-helmet";
 import { useSelector } from "react-redux";
 import { Redirect } from "react-router";
 
 import MovieService from "../../services/movie-service";
+
+import { ColContext } from "../Contexts/ColorContext";
 
 import styles from "./EditMovie.module.scss";
 
@@ -12,6 +14,8 @@ import MovieDetails from "./MovieDetails/MovieDetails";
 import MovieImage from "./MovieImage/MovieImage";
 
 export default function EditMovie(props) {
+  let { theme } = useContext(ColContext);
+
   const history = props.history;
   const movieId = props.match.params.id;
 
@@ -165,8 +169,22 @@ export default function EditMovie(props) {
             <title>EDIT MOVIE</title>
           </Helmet>
           <section className={styles["edit-movie-root-container"]}>
-            <div className={styles["edit-movie-container"]}>
-              <div className={styles["edit-movie-container-heading"]}>
+            <div
+              className={`${styles["edit-movie-container"]} ${
+                theme == "black" ? "whiteText" : "blackText"
+              }`}
+              style={{
+                border:
+                  theme == "black" ? "1px solid white" : "1px solid black",
+              }}
+            >
+              <div
+                className={styles["edit-movie-container-heading"]}
+                style={{
+                  borderBottom:
+                    theme == "black" ? "1px solid white" : "1px solid black",
+                }}
+              >
                 <h3>EDIT MOVIE</h3>
               </div>
               <div className={styles["edit-movie-container-body"]}>
@@ -177,7 +195,15 @@ export default function EditMovie(props) {
                       id="edit-movie-form"
                       name="edit-movie-form"
                     >
-                      <div className={styles["form-fields"]}>
+                      <div
+                        className={styles["form-fields"]}
+                        style={{
+                          borderBottom:
+                            theme == "black"
+                              ? "1px solid white"
+                              : "1px solid black",
+                        }}
+                      >
                         <MovieDetails
                           handleChange={handleChange}
                           details={details}

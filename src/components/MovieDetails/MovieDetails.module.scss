@@ -5,7 +5,6 @@
 
 .movie-details-container {
   margin: 3rem auto;
-  border: 1px solid white;
   width: 80%;
 }
 
@@ -59,6 +58,9 @@
 }
 
 .movie-rich-description-container {
+  h3 {
+    font-weight: 700;
+  }
   p {
     font-size: 0.8rem;
     text-align: justify;

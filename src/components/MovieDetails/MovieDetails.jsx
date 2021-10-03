@@ -1,14 +1,18 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useLocation } from "react-router";
 
 import MovieService from "../../services/movie-service";
+
+import { ColContext } from "../Contexts/ColorContext";
 
 import styles from "./MovieDetails.module.scss";
 
 import CommentSection from "./CommentSection/CommentSection";
 
 export default function MovieDetails(props) {
+  let { theme } = useContext(ColContext);
+
   const movies = useSelector((state) => state.movies.movies);
   const movieId = props.match.params.id;
 
@@ -63,7 +67,16 @@ export default function MovieDetails(props) {
   return (
     <>
       <section className={styles["movie-details-section"]}>
-        <div className={styles["movie-details-container"]}>
+        <div
+          className={`${styles["movie-details-container"]} ${
+            theme == "black"
+              ? "whiteText blackBackground"
+              : "blackText whiteBackground"
+          }`}
+          style={{
+            border: theme == "black" ? "1px solid white" : "1px solid black",
+          }}
+        >
           <div className={styles["movie-details"]}>
             {movie && flags.isFetching === false ? (
               <>

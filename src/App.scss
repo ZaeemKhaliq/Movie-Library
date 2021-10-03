@@ -1,10 +1,51 @@
-.root-container {
+@import "./assets/scss/variables.scss";
+
+@mixin root-container-default {
   min-height: 100vh;
-  background-color: black;
-  background: url("./assets/jpeg/stars1.jpg");
-  background-repeat: no-repeat;
-  background-size: cover;
+  position: relative;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+
+  &::before {
+    content: "";
+    background-image: url("./assets/jpeg/stars1.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-color: black;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    z-index: -1;
+  }
+}
+
+.root-container-black {
+  @include root-container-default();
+}
+
+.root-container-white {
+  @include root-container-default();
+
+  &::before {
+    filter: invert(1);
+  }
+}
+
+.whiteBackground {
+  background-color: white;
+}
+
+.blackBackground {
+  background-color: black;
+}
+
+.whiteText {
+  color: white;
+}
+
+.blackText {
+  color: black;
 }

@@ -1,12 +1,17 @@
+import { useContext } from "react";
 import { useSelector } from "react-redux";
 import { Link, NavLink } from "react-router-dom";
 
 import AuthService from "../../services/auth-service";
 
+import { ColContext } from "../Contexts/ColorContext";
+
 import "./Header.scss";
 
 export default function Header() {
   const user = useSelector((state) => state.auth.user);
+
+  let { theme, setTheme } = useContext(ColContext);
 
   const logout = () => {
     AuthService.logout();
@@ -16,12 +21,22 @@ export default function Header() {
 
   return (
     <header>
-      <div className="header">
+      <div
+        className={`header ${
+          theme == "black" ? "blackBackground" : "whiteBackground"
+        }`}
+      >
         <div className="header-fields">
           <div className="left"></div>
           <div className="middle">
             <div className="title-container">
-              <h2 className="title">MOVIE LIBRARY</h2>
+              <h2
+                className={`title ${
+                  theme == "black" ? "whiteText" : "blackText"
+                }`}
+              >
+                MOVIE LIBRARY
+              </h2>
             </div>
           </div>
           <div className="right">
@@ -30,14 +45,24 @@ export default function Header() {
                 <>
                   <div className="auth-link">
                     <p>
-                      <NavLink to="/login" exact activeClassName="active">
+                      <NavLink
+                        to="/login"
+                        exact
+                        activeClassName="active"
+                        style={{ color: theme == "black" ? "white" : "black" }}
+                      >
                         LOGIN
                       </NavLink>
                     </p>
                   </div>
                   <div className="auth-link">
                     <p>
-                      <NavLink to="/signup" exact activeClassName="active">
+                      <NavLink
+                        to="/signup"
+                        exact
+                        activeClassName="active"
+                        style={{ color: theme == "black" ? "white" : "black" }}
+                      >
                         SIGNUP
                       </NavLink>
                     </p>
@@ -45,7 +70,14 @@ export default function Header() {
                 </>
               ) : (
                 <div className="auth-link">
-                  <p onClick={logout}>LOGOUT</p>
+                  <p
+                    onClick={logout}
+                    className={`${
+                      theme == "black" ? "whiteText" : "blackText"
+                    }`}
+                  >
+                    LOGOUT
+                  </p>
                 </div>
               )}
             </div>

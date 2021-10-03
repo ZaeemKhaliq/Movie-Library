@@ -1,4 +1,6 @@
-import { useMemo, useState } from "react";
+import { useContext, useMemo, useState } from "react";
+
+import { ColContext } from "../../../Contexts/ColorContext";
 
 import styles from "./Comment.module.scss";
 
@@ -7,6 +9,8 @@ import FiberManualRecordIcon from "@mui/icons-material/FiberManualRecord";
 import { Spinner } from "react-bootstrap";
 
 export default function Comment(props) {
+  let { theme } = useContext(ColContext);
+
   const {
     comment,
     handleChange,
@@ -44,7 +48,12 @@ export default function Comment(props) {
   }, [comment]);
 
   return (
-    <div className={styles["comment"]}>
+    <div
+      className={styles["comment"]}
+      style={{
+        border: theme == "black" ? "1px solid white" : "1px solid black",
+      }}
+    >
       <div className={styles["metadata"]}>
         <div className={styles["image-container"]}>
           <img src={ProfileAvatar} alt="IMAGE" className={styles["image"]} />

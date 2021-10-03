@@ -1,7 +1,12 @@
-import { useMemo } from "react";
+import { useContext, useMemo } from "react";
+
+import { ColContext } from "../../Contexts/ColorContext";
+
 import styles from "./MovieDetails.module.scss";
 
 export default function MovieDetails(props) {
+  let { theme } = useContext(ColContext);
+
   const handleChange = props.handleChange;
   let details = props.details;
 
@@ -11,7 +16,12 @@ export default function MovieDetails(props) {
   }, []);
 
   return (
-    <div className={styles["movie-details-section"]}>
+    <div
+      className={styles["movie-details-section"]}
+      style={{
+        borderRight: theme == "black" ? "1px solid white" : "1px solid black",
+      }}
+    >
       <label className={styles["input-label"]}>
         TITLE
         <br />

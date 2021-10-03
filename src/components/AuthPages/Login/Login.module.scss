@@ -24,7 +24,6 @@ $error-color: #eb4949;
   width: 75%;
   margin: 0 auto;
   height: 25rem;
-  border: 1px solid white;
 }
 
 .login-form-container {
@@ -62,7 +61,7 @@ $error-color: #eb4949;
 
 .submit-button {
   background-color: black;
-  border: 1px solid white;
+  color: white;
   width: clamp(5rem, 50%, 10rem);
   height: 2rem;
   font-size: 1rem;

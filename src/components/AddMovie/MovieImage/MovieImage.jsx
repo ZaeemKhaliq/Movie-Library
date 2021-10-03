@@ -1,6 +1,12 @@
+import { useContext } from "react";
+
 import styles from "./MovieImage.module.scss";
 
+import { ColContext } from "../../Contexts/ColorContext";
+
 export default function MovieImage(props) {
+  let { theme } = useContext(ColContext);
+
   const handleFileChange = props.handleFileChange;
 
   return (
@@ -14,6 +20,9 @@ export default function MovieImage(props) {
           className={styles["input-image"]}
           onChange={handleFileChange}
           accept="image/*"
+          style={{
+            border: theme == "black" ? "1px solid white" : "1px solid black",
+          }}
         />
       </div>
     </div>

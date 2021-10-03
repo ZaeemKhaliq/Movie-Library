@@ -1,9 +1,11 @@
-import { useMemo, useState } from "react";
+import { useContext, useMemo, useState } from "react";
 import { Helmet } from "react-helmet";
 import { useSelector } from "react-redux";
 import { Redirect } from "react-router";
 
 import MovieService from "../../services/movie-service";
+
+import { ColContext } from "../Contexts/ColorContext";
 
 import styles from "./AddMovie.module.scss";
 
@@ -12,6 +14,8 @@ import MovieImage from "./MovieImage/MovieImage";
 import MovieDetails from "./MovieDetails/MovieDetails";
 
 export default function AddMovie(props) {
+  let { theme } = useContext(ColContext);
+
   const history = props.history;
 
   const user = useSelector((state) => state.auth.user);
@@ -99,8 +103,21 @@ export default function AddMovie(props) {
         <title>ADD MOVIE</title>
       </Helmet>
       <section className={styles["add-movie-root-container"]}>
-        <div className={styles["add-movie-container"]}>
-          <div className={styles["add-movie-container-heading"]}>
+        <div
+          className={`${styles["add-movie-container"]} ${
+            theme == "black" ? "whiteText" : "blackText"
+          }`}
+          style={{
+            border: theme == "black" ? "1px solid white" : "1px solid black",
+          }}
+        >
+          <div
+            className={styles["add-movie-container-heading"]}
+            style={{
+              borderBottom:
+                theme == "black" ? "1px solid white" : "1px solid black",
+            }}
+          >
             <h3>ADD MOVIE</h3>
           </div>
           <div className={styles["add-movie-container-body"]}>
@@ -111,7 +128,15 @@ export default function AddMovie(props) {
                   id="add-movie-form"
                   name="add-movie-form"
                 >
-                  <div className={styles["form-fields"]}>
+                  <div
+                    className={styles["form-fields"]}
+                    style={{
+                      borderBottom:
+                        theme == "black"
+                          ? "1px solid white"
+                          : "1px solid black",
+                    }}
+                  >
                     <MovieDetails
                       handleChange={handleChange}
                       details={details}

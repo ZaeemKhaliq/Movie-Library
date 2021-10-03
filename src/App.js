@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import {
   BrowserRouter as Router,
   Switch,
@@ -14,6 +14,7 @@ import { authChecker } from "./helpers/authChecker";
 import { setUser } from "./store/reducers/auth";
 
 import LocationContext from "./components/Contexts/LocationContext";
+import { ColContext } from "./components/Contexts/ColorContext";
 
 import HomePage from "./components/HomePage/HomePage";
 import Header from "./components/Header/Header";
@@ -30,6 +31,8 @@ function App(props) {
   let location = props.location.pathname;
   const dispatch = useDispatch();
 
+  let { theme } = useContext(ColContext);
+
   useEffect(() => {
     authChecker();
   }, [location]);
@@ -43,7 +46,11 @@ function App(props) {
   }, []);
 
   return (
-    <main className="root-container">
+    <main
+      className={`${
+        theme == "black" ? "root-container-black" : "root-container-white"
+      }`}
+    >
       <LocationContext>
         <Header />
         <MovieStore />

@@ -1,6 +1,6 @@
 .header {
   height: 5rem;
-  background-color: black;
+  // background-color: black;
 }
 
 .header-fields {
@@ -63,7 +63,6 @@
 
     a {
       text-decoration: none;
-      color: white;
     }
   }
 }
@@ -73,6 +72,7 @@
   border-bottom: 1px solid white;
   border-top: 1px solid white;
   background-color: rgb(29, 29, 29);
+  color: white;
 }
 
 .nav-links {

@@ -1,10 +1,14 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+
+import { ColContext } from "../Contexts/ColorContext";
 
 import styles from "./HomePage.module.scss";
 
 export default function HomePage() {
+  let { theme } = useContext(ColContext);
+
   const movies = useSelector((state) => state.movies.movies);
   const user = useSelector((state) => state.auth.user);
   const filteredMovies = movies.filter((item) => item.isFeatured === true);
@@ -40,7 +44,11 @@ export default function HomePage() {
 
   return (
     <>
-      <section className={styles["featured-movies-section"]}>
+      <section
+        className={`${styles[`featured-movies-section`]} ${
+          theme == "black" ? "whiteText" : "blackText"
+        }`}
+      >
         <div className={styles["featured-movies-heading"]}>
           <h2>FEATURED MOVIES</h2>
         </div>
@@ -51,7 +59,16 @@ export default function HomePage() {
           {flags.isFetching === false && movies.length ? (
             filteredMovies.map((movie, index) => {
               return (
-                <div className={styles["featured-movie-card"]} key={movie.id}>
+                <div
+                  className={`${styles["featured-movie-card"]} ${
+                    theme == "black" ? "blackBackground" : "whiteBackground"
+                  }`}
+                  key={movie.id}
+                  style={{
+                    border:
+                      theme == "black" ? "1px solid white" : "1px solid black",
+                  }}
+                >
                   <div className={styles["movie-image-container"]}>
                     <img
                       src={`/assets/images/movie-images/${getImage(
@@ -65,7 +82,14 @@ export default function HomePage() {
                       <h3>{movie.title}</h3>
                       {user && parseJwt(user.token).isAdmin === true ? (
                         <p className={styles["edit-movie-text"]}>
-                          <Link to={`/edit-movie/${movie.id}`}>EDIT MOVIE</Link>
+                          <Link
+                            to={`/edit-movie/${movie.id}`}
+                            style={{
+                              color: theme == "black" ? "white" : "black",
+                            }}
+                          >
+                            EDIT MOVIE
+                          </Link>
                         </p>
                       ) : null}
                     </div>
@@ -83,6 +107,9 @@ export default function HomePage() {
                         <Link
                           to={{
                             pathname: `/movies/${movie.id}`,
+                          }}
+                          style={{
+                            color: theme == "black" ? "white" : "black",
                           }}
                         >
                           VIEW DETAILS...

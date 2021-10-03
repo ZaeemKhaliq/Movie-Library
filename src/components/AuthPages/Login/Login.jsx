@@ -6,6 +6,7 @@ import AuthService from "../../../services/auth-service";
 import { setUser } from "../../../store/reducers/auth";
 
 import { LocContext } from "../../Contexts/LocationContext";
+import { ColContext } from "../../Contexts/ColorContext";
 
 import styles from "./Login.module.scss";
 
@@ -13,6 +14,8 @@ import CircularProgress from "@mui/material/CircularProgress";
 import Spinner from "react-bootstrap/Spinner";
 
 export default function Login() {
+  let { theme } = useContext(ColContext);
+
   const dispatch = useDispatch();
   const history = useHistory();
 
@@ -97,12 +100,22 @@ export default function Login() {
       {user ? (
         <Redirect to="/" />
       ) : (
-        <section className={styles["login-page-container"]}>
+        <section
+          className={`${styles["login-page-container"]} ${
+            theme == "black" ? "whiteText" : "blackText"
+          }`}
+        >
           <div className={styles["login-page-heading"]}>
             <h2>LOGIN</h2>
           </div>
           <div className={styles["login-box-container"]}>
-            <div className={styles["login-box"]}>
+            <div
+              className={styles["login-box"]}
+              style={{
+                border:
+                  theme == "black" ? "1px solid white" : "1px solid black",
+              }}
+            >
               <div className={styles["login-form-container"]}>
                 <form className={styles["login-form"]} onSubmit={handleSubmit}>
                   <label className={styles["input-label"]}>
@@ -116,6 +129,12 @@ export default function Login() {
                       name="email"
                       onChange={handleChange}
                       value={details.email}
+                      style={{
+                        border:
+                          theme == "black"
+                            ? "1px solid white"
+                            : "1px solid black",
+                      }}
                     />
                   </label>
                   <br />
@@ -130,6 +149,12 @@ export default function Login() {
                       className={styles["input-password"]}
                       onChange={handleChange}
                       value={details.password}
+                      style={{
+                        border:
+                          theme == "black"
+                            ? "1px solid white"
+                            : "1px solid black",
+                      }}
                     />
                   </label>
                   <br />
@@ -143,8 +168,14 @@ export default function Login() {
 
                   <button
                     type="submit"
-                    className={styles["submit-button"]}
+                    className={`${styles["submit-button"]}`}
                     disabled={flag == true ? true : false}
+                    style={{
+                      border:
+                        theme == "black"
+                          ? "1px solid white"
+                          : "1px solid black",
+                    }}
                   >
                     {!flag ? (
                       "LOGIN"

@@ -1,6 +1,8 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Redirect, useHistory } from "react-router";
+
+import { ColContext } from "../../Contexts/ColorContext";
 
 import styles from "./Signup.module.scss";
 
@@ -9,6 +11,8 @@ import AuthService from "../../../services/auth-service";
 import Spinner from "react-bootstrap/Spinner";
 
 export default function Signup() {
+  let { theme } = useContext(ColContext);
+
   const history = useHistory();
 
   const user = useSelector((state) => state.auth.user);
@@ -63,12 +67,22 @@ export default function Signup() {
       {user ? (
         <Redirect to="/" />
       ) : (
-        <section className={styles["signup-page-container"]}>
+        <section
+          className={`${styles["signup-page-container"]} ${
+            theme == "black" ? "whiteText" : "blackText"
+          }`}
+        >
           <div className={styles["signup-page-heading"]}>
             <h2>SIGNUP</h2>
           </div>
           <div className={styles["signup-box-container"]}>
-            <div className={styles["signup-box"]}>
+            <div
+              className={styles["signup-box"]}
+              style={{
+                border:
+                  theme == "black" ? "1px solid white" : "1px solid black",
+              }}
+            >
               <div className={styles["signup-form-container"]}>
                 <form className={styles["signup-form"]} onSubmit={handleSubmit}>
                   <label className={styles["input-label"]}>
@@ -82,6 +96,12 @@ export default function Signup() {
                       name="name"
                       onChange={handleChange}
                       value={details.name}
+                      style={{
+                        border:
+                          theme == "black"
+                            ? "1px solid white"
+                            : "1px solid black",
+                      }}
                     />
                   </label>
 
@@ -97,6 +117,12 @@ export default function Signup() {
                       name="email"
                       onChange={handleChange}
                       value={details.email}
+                      style={{
+                        border:
+                          theme == "black"
+                            ? "1px solid white"
+                            : "1px solid black",
+                      }}
                     />
                   </label>
 
@@ -112,6 +138,12 @@ export default function Signup() {
                       name="password"
                       onChange={handleChange}
                       value={details.password}
+                      style={{
+                        border:
+                          theme == "black"
+                            ? "1px solid white"
+                            : "1px solid black",
+                      }}
                     />
                   </label>
                   <br />
@@ -127,6 +159,12 @@ export default function Signup() {
                     type="submit"
                     className={styles["submit-button"]}
                     disabled={flag == true ? true : false}
+                    style={{
+                      border:
+                        theme == "black"
+                          ? "1px solid white"
+                          : "1px solid black",
+                    }}
                   >
                     {!flag ? (
                       "SIGNUP"

@@ -4,7 +4,6 @@ $green: #36d636;
 .comment-section-root-container {
   width: 80%;
   margin: 0 auto 3rem auto;
-  border: 1px solid white;
 }
 
 .comment-section-container {
@@ -14,7 +13,6 @@ $green: #36d636;
 }
 
 .comment-section-heading {
-  border-bottom: 5px solid white;
   display: flex;
   justify-content: space-between;
 }
@@ -27,7 +25,6 @@ $green: #36d636;
   display: flex;
   flex-direction: column;
   padding-bottom: 1rem;
-  border-bottom: 1px solid white;
 
   .user-comment {
     width: 100%;
