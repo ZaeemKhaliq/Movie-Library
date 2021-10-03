@@ -76,7 +76,7 @@
 @media screen and (max-width: 700px) {
   .movie-details-section {
     width: 100%;
-    border-right: none;
+    border-right: none !important;
     padding-right: 0;
   }
 
