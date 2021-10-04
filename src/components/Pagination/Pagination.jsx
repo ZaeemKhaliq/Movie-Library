@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Comment from "../MovieDetails/CommentSection/Comment/Comment";
 import Movie from "../Movies/Movie/Movie";
 
@@ -31,13 +31,24 @@ export default function Pagination(props) {
   // console.log("Pages: ", pages);
   // console.log("Current Page: ", currentPage);
 
+  const isInitialMount = useRef(true);
+
   useEffect(() => {
     let header = document.getElementById("header");
+    let movieDetailsContainer = document.getElementById(
+      "movie-details-container"
+    );
 
-    window.scrollTo({
-      behavior: "smooth",
-      top: header.offsetHeight,
-    });
+    if (isInitialMount.current) {
+      isInitialMount.current = false;
+    } else {
+      if (isMovies === true) {
+        window.scrollTo({
+          behavior: "smooth",
+          top: header.offsetHeight,
+        });
+      }
+    }
   }, [currentPage]);
 
   function goToNextPage() {

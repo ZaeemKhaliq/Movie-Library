@@ -76,6 +76,7 @@ export default function MovieDetails(props) {
           style={{
             border: theme == "black" ? "1px solid white" : "1px solid black",
           }}
+          id="movie-details-container"
         >
           <div className={styles["movie-details"]}>
             {movie && flags.isFetching === false ? (
