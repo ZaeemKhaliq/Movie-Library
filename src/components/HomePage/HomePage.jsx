@@ -1,3 +1,4 @@
+import React from "react";
 import { useContext, useState } from "react";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
@@ -63,7 +64,6 @@ export default function HomePage() {
                   className={`${styles["featured-movie-card"]} ${
                     theme == "black" ? "blackBackground" : "whiteBackground"
                   }`}
-                  key={movie.id}
                   style={{
                     border:
                       theme == "black" ? "1px solid white" : "1px solid black",

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Comment from "../MovieDetails/CommentSection/Comment/Comment";
 import Movie from "../Movies/Movie/Movie";
 
@@ -30,6 +30,15 @@ export default function Pagination(props) {
 
   // console.log("Pages: ", pages);
   // console.log("Current Page: ", currentPage);
+
+  useEffect(() => {
+    let header = document.getElementById("header");
+
+    window.scrollTo({
+      behavior: "smooth",
+      top: header.offsetHeight,
+    });
+  }, [currentPage]);
 
   function goToNextPage() {
     setCurrentPage((page) => page + 1);

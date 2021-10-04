@@ -20,7 +20,7 @@ export default function Header() {
   };
 
   return (
-    <header>
+    <header id="header">
       <div
         className={`header ${
           theme == "black" ? "blackBackground" : "whiteBackground"
